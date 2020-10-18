@@ -1,4 +1,22 @@
 class Recipt
+  # 定数
+  VERSION = "1.0.0"
+
+  # クラス変数
+  # アクセスメソッドが必要だがattr_accessorなどは使えない
+  @@count = 0
+  def self.count
+    @@count
+  end
+
+  def self.count=(count)
+    @@count = count
+  end
+
+  def self.countup
+    @@count += 1
+  end
+
   def initialize(name)
     # インスタンス変数は同じインスタンス内ならメソッド定義を超えて参照できる
     # 未定義はnil
@@ -53,6 +71,18 @@ class Recipt
     end
     puts "合計 #{calc}"
   end
+
+  # クラスメソッド
+  # class << クラス名 ~ end という書き方を特異クラスといい、その中のメソッドを特異メソッドという。
+  class << self
+    def classmethod_sample
+      "classmethod"
+    end
+  end
+  # メソッドのレシーバにselfを指定する書き方もok
+  def self.classmethod_sample2
+    "another classmethod"
+  end
 end
 
 r = Recipt.new("ストアA")
@@ -63,3 +93,16 @@ r.output
 # renameの確認
 r.rename
 r.output
+
+# 定数呼び出し
+p Recipt::VERSION
+
+# クラスメソッドの呼び出し
+p Recipt.classmethod_sample2
+
+# クラス変数の呼び出し
+p Recipt.count
+Recipt.countup
+p Recipt.count
+Recipt.count = 5
+p Recipt.count
