@@ -1,0 +1,8 @@
+version: '3'
+services: 
+    #ruby開発環境
+    ruby:
+        build: .
+        volumes: 
+            - "./src:/usr/src"
+        tty: true
